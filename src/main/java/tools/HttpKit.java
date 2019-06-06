@@ -19,7 +19,6 @@ public class HttpKit {
             StringBuilder stringBuilder = new StringBuilder();
             param.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             url += "?" + stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
-            System.out.println("url = " + url);
             HttpGet get = new HttpGet(url);
             res = client.execute(get);
             return EntityUtils.toString(res.getEntity());

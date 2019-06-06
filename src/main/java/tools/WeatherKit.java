@@ -19,4 +19,11 @@ public class WeatherKit {
         return JSON.parseObject(HttpKit.get(request_url, map));
     }
 
+    public static JSONObject get(String location) {
+        Map<String, String> map = new HashMap<>();
+        map.put("location", location);
+        map.put("key", web_key);
+        return JSON.parseObject(HttpKit.get(request_url, map));
+    }
+
 }
