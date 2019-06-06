@@ -97,7 +97,7 @@
             <Label fx:id="vis" alignment="CENTER" layoutX="419.0" layoutY="224.0" prefHeight="15.0" prefWidth="55.0" text="--" />
             <Label fx:id="pres" alignment="CENTER" layoutX="239.0" layoutY="269.0" prefHeight="15.0" prefWidth="55.0" text="--" />
             <ChoiceBox fx:id="hidden_select" layoutX="14.0" layoutY="14.0" prefHeight="23.0" prefWidth="382.0" />
-            <TextField fx:id="loc_input" layoutX="14.0" layoutY="14.0" onInputMethodTextChanged="#onChange" onKeyPressed="#onEnter" prefHeight="23.0" prefWidth="382.0" />
+            <TextField fx:id="loc_input" layoutX="14.0" layoutY="14.0" onKeyPressed="#onEnter" prefHeight="23.0" prefWidth="382.0" />
             <Label fx:id="cloud" alignment="CENTER" layoutX="419.0" layoutY="269.0" prefHeight="15.0" prefWidth="55.0" text="--" />
             <Separator layoutY="308.0" prefHeight="3.0" prefWidth="491.0" />
             <Label fx:id="parent" alignment="CENTER" layoutX="27.0" layoutY="183.0" prefHeight="34.0" prefWidth="80.0" text="——" wrapText="true">

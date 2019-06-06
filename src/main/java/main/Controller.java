@@ -75,6 +75,25 @@ public class Controller {
             if(n.intValue() <= 0) return;
             loc_input.setText(hidden_select.getItems().get(n.intValue()).getLocation());
         });
+        loc_input.textProperty().addListener((ob, o, n) -> {
+            if(loc_input.getText().length() >= 1) {
+                JSONObject jo = LocationKit.get(loc_input.getText());
+                JSONArray ja = jo.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("basic");
+                if(ja == null) return;
+                hidden_select.getItems().clear();
+                for(JSONObject in : ja.toJavaList(JSONObject.class)) {
+                    String cid = in.getString("cid");
+                    String location = in.getString("location");
+                    String parent_city = in.getString("parent_city");
+                    String admin_area = in.getString("admin_area");
+                    String cnty = in.getString("cnty");
+                    double lat = in.getDouble("lat");
+                    double lon = in.getDouble("lon");
+                    hidden_select.getItems().add(new Loc(cid, location, parent_city, admin_area, cnty, lat, lon));
+                }
+                hidden_select.show();
+            }
+        });
         flush();
     }
 
@@ -125,28 +144,6 @@ public class Controller {
     void onEnter(KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER) {
             query(null);
-        }
-    }
-
-    @FXML
-    void onChange(InputMethodEvent event) {
-        loc_input.setText(loc_input.getText() + event.getCommitted());
-        if(loc_input.getText().length() >= 1) {
-            JSONObject jo = LocationKit.get(loc_input.getText());
-            JSONArray ja = jo.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("basic");
-            if(ja == null) return;
-            hidden_select.getItems().clear();
-            for(JSONObject in : ja.toJavaList(JSONObject.class)) {
-                String cid = in.getString("cid");
-                String location = in.getString("location");
-                String parent_city = in.getString("parent_city");
-                String admin_area = in.getString("admin_area");
-                String cnty = in.getString("cnty");
-                double lat = in.getDouble("lat");
-                double lon = in.getDouble("lon");
-                hidden_select.getItems().add(new Loc(cid, location, parent_city, admin_area, cnty, lat, lon));
-            }
-            hidden_select.show();
         }
     }
 
