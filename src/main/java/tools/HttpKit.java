@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class HttpKit {
 
-    public static String get(String url, Map<String, String> param) {
+    public static String get(String url, Map<String, Object> param) {
         CloseableHttpClient client;
         CloseableHttpResponse res;
         try {

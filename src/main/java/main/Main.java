@@ -20,13 +20,12 @@ public class Main extends Application {
         Pane p = loader.load();
         Controller controller = loader.getController();
         Platform.runLater(controller::init);
-        Scene main = new Scene(Objects.requireNonNull(p), 600, 242);
+        Scene main = new Scene(Objects.requireNonNull(p), 479, 363);
         stage.getIcons().add(ImageKit.get("900"));
         stage.setScene(main);
         stage.setResizable(false);
         stage.setTitle("Cloud9");
         stage.show();
-
     }
 
 

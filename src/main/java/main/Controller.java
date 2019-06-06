@@ -1,12 +1,23 @@
 package main;
 
+import bean.Loc;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import tools.ImageKit;
+import tools.LocationKit;
 import tools.WeatherKit;
 
 public class Controller {
@@ -38,7 +49,28 @@ public class Controller {
     @FXML
     private TextField loc_input;
 
+    @FXML
+    private Label pcpn;
+
+    @FXML
+    private Label wind_deg;
+
+    @FXML
+    private Label vis;
+
+    @FXML
+    private Label pres;
+
+    @FXML
+    private Label cloud;
+
+    @FXML
+    private ChoiceBox<Loc> hidden_select;
+
     void init() {
+        hidden_select.getSelectionModel().selectedIndexProperty().addListener((ob, o, n) -> {
+            loc_input.setText(hidden_select.getItems().get(n.intValue()).getLocation());
+        });
         flush();
     }
 
@@ -66,6 +98,11 @@ public class Controller {
             hum.setText(now.getString("hum") + "%");
             wind_spd.setText(now.getString("wind_spd") + " km/h");
             cond_txt.setText(now.getString("cond_txt"));
+            pcpn.setText(now.getString("pcpn"));
+            pres.setText(now.getString("pres"));
+            wind_deg.setText(now.getString("wind_dir"));
+            vis.setText(now.getString("vis"));
+            cloud.setText(now.getString("cloud"));
             weather_icon.setImage(ImageKit.get(now.getString("cond_code")));
         } else {
             System.err.println("远程服务器数据出现问题！" + status);
@@ -77,6 +114,34 @@ public class Controller {
         String str = loc_input.getText();
         if(str == null || str.isEmpty()) str = "auto_ip";
         flush(str);
+    }
+
+    @FXML
+    void onEnter(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            query(null);
+        }
+    }
+
+    @FXML
+    void onChange(InputMethodEvent event) {
+        loc_input.setText(loc_input.getText() + event.getCommitted());
+        if(loc_input.getText().length() >= 1) {
+            JSONObject jo = LocationKit.get(loc_input.getText());
+            JSONArray ja = jo.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("basic");
+            hidden_select.getItems().clear();
+            for(JSONObject in : ja.toJavaList(JSONObject.class)) {
+                String cid = in.getString("cid");
+                String location = in.getString("location");
+                String parent_city = in.getString("parent_city");
+                String admin_area = in.getString("admin_area");
+                String cnty = in.getString("cnty");
+                double lat = in.getDouble("lat");
+                double lon = in.getDouble("lon");
+                hidden_select.getItems().add(new Loc(cid, location, parent_city, admin_area, cnty, lat, lon));
+            }
+            hidden_select.show();
+        }
     }
 
 }
