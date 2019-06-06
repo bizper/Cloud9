@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" fx:controller="main.Controller" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -26,18 +26,48 @@
                   <Rectangle2D height="200.0" width="200.0" />
                </viewport>
             </ImageView>
-            <Label alignment="CENTER" layoutX="236.0" layoutY="66.0" prefHeight="34.0" prefWidth="80.0" text="所处位置" wrapText="true">
+            <Label alignment="CENTER" layoutX="134.0" layoutY="67.0" prefHeight="34.0" prefWidth="80.0" text="所处位置" wrapText="true">
                <font>
                   <Font name="Microsoft YaHei Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="loc" alignment="CENTER" layoutX="316.0" layoutY="76.0" prefHeight="15.0" prefWidth="259.0" text="Label" />
-            <Label alignment="CENTER" layoutX="236.0" layoutY="108.0" prefHeight="34.0" prefWidth="80.0" text="当前气温" wrapText="true">
+            <Label fx:id="loc" alignment="CENTER" layoutX="239.0" layoutY="77.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label alignment="CENTER" layoutX="134.0" layoutY="117.0" prefHeight="34.0" prefWidth="80.0" text="当前气温" wrapText="true">
                <font>
                   <Font name="Microsoft YaHei Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="max_tem" alignment="CENTER" layoutX="418.0" layoutY="118.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label fx:id="max_tem" alignment="CENTER" layoutX="239.0" layoutY="127.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label alignment="CENTER" layoutX="134.0" layoutY="166.0" prefHeight="34.0" prefWidth="80.0" text="体感温度" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="fl_tem" alignment="CENTER" layoutX="239.0" layoutY="176.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label alignment="CENTER" layoutX="326.0" layoutY="166.0" prefHeight="34.0" prefWidth="80.0" text="相对湿度" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="326.0" layoutY="118.0" prefHeight="34.0" prefWidth="80.0" text="风速" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="406.0" layoutY="363.0" prefHeight="23.0" prefWidth="80.0" text="更新时间" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="update_time" alignment="CENTER" layoutX="476.0" layoutY="367.0" prefHeight="15.0" prefWidth="115.0" text="Label" />
+            <Label fx:id="hum" alignment="CENTER" layoutX="419.0" layoutY="176.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label fx:id="wind_spd" alignment="CENTER" layoutX="419.0" layoutY="128.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
+            <Label alignment="CENTER" layoutX="326.0" layoutY="67.0" prefHeight="34.0" prefWidth="80.0" text="天气状况" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="cond_txt" alignment="CENTER" layoutX="419.0" layoutY="77.0" prefHeight="15.0" prefWidth="55.0" text="Label" />
          </children>
       </AnchorPane>
    </children>
