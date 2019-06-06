@@ -65,10 +65,14 @@ public class Controller {
     private Label cloud;
 
     @FXML
+    private Label parent;
+
+    @FXML
     private ChoiceBox<Loc> hidden_select;
 
     void init() {
         hidden_select.getSelectionModel().selectedIndexProperty().addListener((ob, o, n) -> {
+            if(n.intValue() <= 0) return;
             loc_input.setText(hidden_select.getItems().get(n.intValue()).getLocation());
         });
         flush();
@@ -94,6 +98,7 @@ public class Controller {
             loc_input.setText(basic.getString("location"));
             max_tem.setText(now.getString("tmp") + "°C");
             fl_tem.setText(now.getString("fl")  + "°C");
+            parent.setText(basic.getString("admin_area"));
             update_time.setText(update.getString("loc"));
             hum.setText(now.getString("hum") + "%");
             wind_spd.setText(now.getString("wind_spd") + " km/h");
@@ -129,6 +134,7 @@ public class Controller {
         if(loc_input.getText().length() >= 1) {
             JSONObject jo = LocationKit.get(loc_input.getText());
             JSONArray ja = jo.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("basic");
+            if(ja == null) return;
             hidden_select.getItems().clear();
             for(JSONObject in : ja.toJavaList(JSONObject.class)) {
                 String cid = in.getString("cid");
