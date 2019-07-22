@@ -85,6 +85,6 @@ public class Loc {
 
     @Override
     public String toString() {
-        return location;
+        return location + " - " + admin_area;
     }
 }

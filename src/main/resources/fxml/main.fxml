@@ -1,111 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <children>
-      <AnchorPane prefHeight="363.0" prefWidth="491.0">
-         <children>
-            <Button layoutX="419.0" layoutY="14.0" mnemonicParsing="false" onAction="#query" prefHeight="23.0" prefWidth="55.0" text="查询" />
-            <Separator layoutY="50.0" prefHeight="3.0" prefWidth="491.0" />
-            <ImageView fx:id="weather_icon" fitHeight="106.0" fitWidth="106.0" layoutX="14.0" layoutY="65.0" pickOnBounds="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="65.0">
-               <image>
-                  <Image url="@../Pictures/QQ图片20190426144552.jpg" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-            <Label fx:id="loc" alignment="CENTER" layoutX="27.0" layoutY="214.0" prefHeight="34.0" prefWidth="80.0" text="——" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="134.0" layoutY="68.0" prefHeight="34.0" prefWidth="80.0" text="当前气温" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="max_tem" alignment="CENTER" layoutX="239.0" layoutY="78.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label alignment="CENTER" layoutX="134.0" layoutY="166.0" prefHeight="34.0" prefWidth="80.0" text="体感温度" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="fl_tem" alignment="CENTER" layoutX="239.0" layoutY="176.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label alignment="CENTER" layoutX="326.0" layoutY="166.0" prefHeight="34.0" prefWidth="80.0" text="相对湿度" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="326.0" layoutY="118.0" prefHeight="34.0" prefWidth="80.0" text="风速" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="279.0" layoutY="322.0" prefHeight="23.0" prefWidth="80.0" text="更新时间" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="update_time" alignment="CENTER" layoutX="367.0" layoutY="326.0" prefHeight="15.0" prefWidth="106.0" text="--" />
-            <Label fx:id="hum" alignment="CENTER" layoutX="419.0" layoutY="176.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label fx:id="wind_spd" alignment="CENTER" layoutX="419.0" layoutY="128.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label alignment="CENTER" layoutX="326.0" layoutY="67.0" prefHeight="34.0" prefWidth="80.0" text="天气状况" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="cond_txt" alignment="CENTER" layoutX="419.0" layoutY="77.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label alignment="CENTER" layoutX="134.0" layoutY="213.0" prefHeight="34.0" prefWidth="80.0" text="降水量" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="pcpn" alignment="CENTER" layoutX="239.0" layoutY="223.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label alignment="CENTER" layoutX="326.0" layoutY="214.0" prefHeight="34.0" prefWidth="80.0" text="能见度" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="134.0" layoutY="259.0" prefHeight="34.0" prefWidth="80.0" text="大气压强" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="326.0" layoutY="259.0" prefHeight="34.0" prefWidth="80.0" text="云量" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="134.0" layoutY="118.0" prefHeight="34.0" prefWidth="80.0" text="风向" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="wind_deg" alignment="CENTER" layoutX="239.0" layoutY="128.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label fx:id="vis" alignment="CENTER" layoutX="419.0" layoutY="224.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Label fx:id="pres" alignment="CENTER" layoutX="239.0" layoutY="269.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <ChoiceBox fx:id="hidden_select" layoutX="14.0" layoutY="14.0" prefHeight="23.0" prefWidth="382.0" />
-            <TextField fx:id="loc_input" layoutX="14.0" layoutY="14.0" onKeyPressed="#onEnter" prefHeight="23.0" prefWidth="382.0" />
-            <Label fx:id="cloud" alignment="CENTER" layoutX="419.0" layoutY="269.0" prefHeight="15.0" prefWidth="55.0" text="--" />
-            <Separator layoutY="308.0" prefHeight="3.0" prefWidth="491.0" />
-            <Label fx:id="parent" alignment="CENTER" layoutX="27.0" layoutY="183.0" prefHeight="34.0" prefWidth="80.0" text="——" wrapText="true">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="天气插件">
+               <content>
+                  <AnchorPane prefHeight="363.0" prefWidth="491.0">
+                     <children>
+                        <Button layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#query" prefHeight="23.0" prefWidth="55.0" text="查询" />
+                        <Separator layoutY="50.0" prefHeight="0.0" prefWidth="600.0" />
+                        <ImageView fx:id="weather_icon" fitHeight="106.0" fitWidth="106.0" layoutX="14.0" layoutY="65.0" pickOnBounds="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="65.0">
+                           <image>
+                              <Image url="@../Pictures/QQ图片20190426144552.jpg" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <Label fx:id="loc" alignment="CENTER" layoutX="27.0" layoutY="233.0" prefHeight="34.0" prefWidth="80.0" text="——" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="149.0" layoutY="76.0" prefHeight="34.0" prefWidth="80.0" text="当前气温" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="max_tem" alignment="CENTER" layoutX="253.0" layoutY="121.0" prefHeight="24.0" prefWidth="67.0" text="--">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="232.0" prefHeight="34.0" prefWidth="80.0" text="体感温度" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fl_tem" alignment="CENTER" layoutX="273.0" layoutY="242.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label alignment="CENTER" layoutX="379.0" layoutY="230.0" prefHeight="34.0" prefWidth="80.0" text="相对湿度" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="379.0" layoutY="174.0" prefHeight="34.0" prefWidth="80.0" text="风速" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="396.0" layoutY="635.0" prefHeight="23.0" prefWidth="80.0" text="更新时间" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="update_time" alignment="CENTER" layoutX="478.0" layoutY="639.0" prefHeight="15.0" prefWidth="106.0" text="--" />
+                        <Label fx:id="hum" alignment="CENTER" layoutX="489.0" layoutY="241.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label fx:id="wind_spd" alignment="CENTER" layoutX="489.0" layoutY="184.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label alignment="CENTER" layoutX="379.0" layoutY="111.0" prefHeight="34.0" prefWidth="80.0" text="天气状况" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cond_txt" alignment="CENTER" layoutX="489.0" layoutY="121.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="288.0" prefHeight="34.0" prefWidth="80.0" text="降水量" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="pcpn" alignment="CENTER" layoutX="273.0" layoutY="297.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label alignment="CENTER" layoutX="379.0" layoutY="286.0" prefHeight="34.0" prefWidth="80.0" text="能见度" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="345.0" prefHeight="34.0" prefWidth="80.0" text="大气压强" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="379.0" layoutY="342.0" prefHeight="34.0" prefWidth="80.0" text="云量" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="175.0" prefHeight="34.0" prefWidth="80.0" text="风向" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="wind_deg" alignment="CENTER" layoutX="273.0" layoutY="185.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label fx:id="vis" alignment="CENTER" layoutX="489.0" layoutY="296.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Label fx:id="pres" alignment="CENTER" layoutX="273.0" layoutY="354.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <ChoiceBox fx:id="hidden_select" layoutX="14.0" layoutY="14.0" prefHeight="23.0" prefWidth="382.0" />
+                        <TextField fx:id="loc_input" layoutX="14.0" layoutY="14.0" onKeyPressed="#onEnter" prefHeight="23.0" prefWidth="502.0" />
+                        <Label fx:id="cloud" alignment="CENTER" layoutX="489.0" layoutY="352.0" prefHeight="15.0" prefWidth="55.0" text="--" />
+                        <Separator layoutX="1.0" layoutY="623.0" prefHeight="0.0" prefWidth="600.0" />
+                        <Label fx:id="parent" alignment="CENTER" layoutX="27.0" layoutY="183.0" prefHeight="34.0" prefWidth="80.0" text="——" wrapText="true">
+                           <font>
+                              <Font name="Microsoft YaHei" size="14.0" />
+                           </font>
+                        </Label>
+                        <LineChart fx:id="forecast" animated="false" layoutX="27.0" layoutY="428.0" prefHeight="174.0" prefWidth="547.0" title="三日天气预报" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <Separator layoutX="1.0" layoutY="406.0" prefHeight="0.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="二维码插件">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="+">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ToolBar prefHeight="40.0" prefWidth="600.0">
+                           <items>
+                              <Button mnemonicParsing="false" text="导入" />
+                           </items>
+                        </ToolBar>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
    </children>
 </Pane>

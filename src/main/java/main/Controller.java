@@ -3,17 +3,13 @@ package main;
 import bean.Loc;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import tools.ImageKit;
@@ -70,7 +66,13 @@ public class Controller {
     @FXML
     private ChoiceBox<Loc> hidden_select;
 
+    @FXML
+    private LineChart<String, Number> forecast;
+
     void init() {
+        forecast.setCreateSymbols(true);
+        Axis<String> axis =  forecast.getXAxis();
+        axis.setAutoRanging(true);
         hidden_select.getSelectionModel().selectedIndexProperty().addListener((ob, o, n) -> {
             if(n.intValue() <= 0) return;
             loc_input.setText(hidden_select.getItems().get(n.intValue()).getLocation());
@@ -98,13 +100,17 @@ public class Controller {
     }
 
     private void flush() {
-        JSONObject t = WeatherKit.get();
+        JSONObject t = WeatherKit.getNow();
         render(t);
+        JSONObject forecast = WeatherKit.getForecast();
+        renderForecast(forecast);
     }
 
     private void flush(String location) {
-        JSONObject t = WeatherKit.get(location);
-        render(t);
+        JSONObject basic = WeatherKit.getNow(location);
+        render(basic);
+        JSONObject forecast = WeatherKit.getForecast(location);
+        renderForecast(forecast);
     }
 
     private void render(JSONObject t) {
@@ -128,6 +134,28 @@ public class Controller {
             vis.setText(now.getString("vis"));
             cloud.setText(now.getString("cloud"));
             weather_icon.setImage(ImageKit.get(now.getString("cond_code")));
+        } else {
+            System.err.println("远程服务器数据出现问题！" + status);
+        }
+    }
+
+    private void renderForecast(JSONObject t) {
+        forecast.getData().clear();
+        JSONArray daily_forecast = t.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("daily_forecast");
+        String status = t.getJSONArray("HeWeather6").getJSONObject(0).getString("status");
+        if(status.equals("ok")) {
+            XYChart.Series<String, Number> max = new XYChart.Series<>();
+            max.setName("最高气温");
+            for(JSONObject inside : daily_forecast.toJavaList(JSONObject.class)) {
+                max.getData().add(new XYChart.Data<>(inside.getString("date"), Integer.parseInt(inside.getString("tmp_max"))));
+            }
+            XYChart.Series<String, Number> min = new XYChart.Series<>();
+            max.setName("最低气温");
+            for(JSONObject inside : daily_forecast.toJavaList(JSONObject.class)) {
+                min.getData().add(new XYChart.Data<>(inside.getString("date"), Integer.parseInt(inside.getString("tmp_min"))));
+            }
+            forecast.getData().add(max);
+            forecast.getData().add(min);
         } else {
             System.err.println("远程服务器数据出现问题！" + status);
         }

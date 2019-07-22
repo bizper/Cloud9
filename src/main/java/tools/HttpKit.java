@@ -1,5 +1,6 @@
 package tools;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,13 +12,13 @@ import java.util.Map;
 
 public class HttpKit {
 
-    public static String get(String url, Map<String, Object> param) {
+    public static String get(String url, Map<String, Object> params) {
         CloseableHttpClient client;
         CloseableHttpResponse res;
         try {
             client = HttpClients.createDefault();
             StringBuilder stringBuilder = new StringBuilder();
-            param.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
+            params.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             url += "?" + stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
             HttpGet get = new HttpGet(url);
             res = client.execute(get);
@@ -26,6 +27,10 @@ public class HttpKit {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static JSONObject getAsJSON(String url, Map<String, Object> params) {
+        return JSONObject.parseObject(get(url, params));
     }
 
 }
