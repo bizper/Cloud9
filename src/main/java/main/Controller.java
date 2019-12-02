@@ -1,19 +1,19 @@
 package main;
 
-import bean.Loc;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import tools.ImageKit;
-import tools.LocationKit;
 import tools.WeatherKit;
 
 public class Controller {
@@ -64,38 +64,18 @@ public class Controller {
     private Label parent;
 
     @FXML
-    private ChoiceBox<Loc> hidden_select;
+    private LineChart<String, Number> forecast;
 
     @FXML
-    private LineChart<String, Number> forecast;
+    private ImageView qrcode;
+
+    @FXML
+    private TextArea qrtext;
 
     void init() {
         forecast.setCreateSymbols(true);
         Axis<String> axis =  forecast.getXAxis();
         axis.setAutoRanging(true);
-        hidden_select.getSelectionModel().selectedIndexProperty().addListener((ob, o, n) -> {
-            if(n.intValue() <= 0) return;
-            loc_input.setText(hidden_select.getItems().get(n.intValue()).getLocation());
-        });
-        loc_input.textProperty().addListener((ob, o, n) -> {
-            if(loc_input.getText().length() >= 1) {
-                JSONObject jo = LocationKit.get(loc_input.getText());
-                JSONArray ja = jo.getJSONArray("HeWeather6").getJSONObject(0).getJSONArray("basic");
-                if(ja == null) return;
-                hidden_select.getItems().clear();
-                for(JSONObject in : ja.toJavaList(JSONObject.class)) {
-                    String cid = in.getString("cid");
-                    String location = in.getString("location");
-                    String parent_city = in.getString("parent_city");
-                    String admin_area = in.getString("admin_area");
-                    String cnty = in.getString("cnty");
-                    double lat = in.getDouble("lat");
-                    double lon = in.getDouble("lon");
-                    hidden_select.getItems().add(new Loc(cid, location, parent_city, admin_area, cnty, lat, lon));
-                }
-                hidden_select.show();
-            }
-        });
         flush();
     }
 
@@ -159,6 +139,17 @@ public class Controller {
         } else {
             System.err.println("远程服务器数据出现问题！" + status);
         }
+    }
+
+    @FXML
+    void qrparse(ActionEvent event) {
+        qrtext.setText(ImageKit.parse(qrcode.getImage()));
+    }
+
+    @FXML
+    void qrgen(ActionEvent event) {
+        Image img = ImageKit.create(qrtext.getText());
+        qrcode.setImage(img);
     }
 
     @FXML
