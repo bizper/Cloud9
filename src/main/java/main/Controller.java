@@ -2,10 +2,10 @@ package main;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -13,8 +13,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import tools.ImageKit;
 import tools.WeatherKit;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Controller {
 
@@ -72,7 +78,10 @@ public class Controller {
     @FXML
     private TextArea qrtext;
 
-    void init() {
+    private Stage s;
+
+    void init(Stage s) {
+        this.s = s;
         forecast.setCreateSymbols(true);
         Axis<String> axis =  forecast.getXAxis();
         axis.setAutoRanging(true);
@@ -111,7 +120,7 @@ public class Controller {
             pcpn.setText(now.getString("pcpn"));
             pres.setText(now.getString("pres"));
             wind_deg.setText(now.getString("wind_dir"));
-            vis.setText(now.getString("vis"));
+            vis.setText(now.getString("vis") + "km");
             cloud.setText(now.getString("cloud"));
             weather_icon.setImage(ImageKit.get(now.getString("cond_code")));
         } else {
@@ -148,7 +157,9 @@ public class Controller {
 
     @FXML
     void qrgen(ActionEvent event) {
-        Image img = ImageKit.create(qrtext.getText());
+        String content = qrtext.getText();
+        if(content == null || content.isEmpty()) return;
+        Image img = ImageKit.create(content);
         qrcode.setImage(img);
     }
 
@@ -160,10 +171,39 @@ public class Controller {
     }
 
     @FXML
+    void qrinport(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("choose QR code");
+        File f = fc.showOpenDialog(s);
+        if(f != null && f.exists()) {
+            Image image = ImageKit.getImage(f);
+            qrcode.setImage(image);
+        }
+    }
+
+    @FXML
+    void qrexport(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("save QR code");
+        fc.setInitialFileName("qrcode.png");
+        File f = fc.showSaveDialog(s);
+        System.out.println(f.getAbsolutePath());
+        Image image = qrcode.getImage();
+        try {
+            if(!f.exists()) if(!f.createNewFile()) System.err.println("create file failed");
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void onEnter(KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER) {
             query(null);
         }
     }
+
+
 
 }

@@ -4,12 +4,14 @@ import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 
@@ -21,13 +23,12 @@ public class ImageKit {
 
     private static final String CHARSET = "utf-8";
 
-    private static final String FORMAT_NAME = "JPG";
     // 二维码尺寸
     private static final int QRCODE_SIZE = 400;
 
     public static Image create(String content) {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
-        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
         hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
         hints.put(EncodeHintType.MARGIN, 1);
         BitMatrix bitMatrix = null;
@@ -66,14 +67,12 @@ public class ImageKit {
     }
 
     public static String parse(Image image) {
-        BufferedImage bf = new BufferedImage((int) image.getWidth(), (int) image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        PixelReader pr = image.getPixelReader();
-        for (int x = 0; x < bf.getWidth(); x++) {
-            for (int y = 0; y < bf.getHeight(); y++) {
-                bf.setRGB(x, y, pr.getArgb(x, y));
-            }
-        }
+        BufferedImage bf = SwingFXUtils.fromFXImage(image, null);
         return parse(bf);
+    }
+
+    public static Image getImage(File f) {
+        return new Image(f.getAbsoluteFile().toURI().toString());
     }
 
 }

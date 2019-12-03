@@ -5,7 +5,10 @@
       <w>faabd</w>
       <w>loca</w>
       <w>pcpn</w>
+      <w>qrcode</w>
+      <w>qrexport</w>
       <w>qrgen</w>
+      <w>qrinport</w>
       <w>qrparse</w>
     </words>
   </dictionary>
